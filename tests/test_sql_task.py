@@ -1,5 +1,5 @@
 from unittest import TestCase, mock
-from utils.sql_task import SQLTask
+from jiffysql.utils.sql_task import SQLTask
 from tests.misc import expected_loaded_query_string
 
 

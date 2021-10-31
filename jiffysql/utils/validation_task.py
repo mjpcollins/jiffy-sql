@@ -1,6 +1,6 @@
 import datetime
-from utils.base_sql_task import BaseSQLTask
-from utils.big_query import (
+from jiffysql.utils.base_sql_task import BaseSQLTask
+from jiffysql.utils.big_query import (
     run_validation_script,
     insert_into_table
 )

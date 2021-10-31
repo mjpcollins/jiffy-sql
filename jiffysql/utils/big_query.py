@@ -6,7 +6,7 @@ from google.cloud.bigquery import (
     Table,
     TimePartitioning
 )
-from schema.validation_table import schema as validation_schema
+from jiffysql.schema.validation_table import schema as validation_schema
 
 
 def insert_into_table(request, params, row):

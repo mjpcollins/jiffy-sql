@@ -1,5 +1,5 @@
 from unittest import TestCase
-from utils.format import (
+from jiffysql.utils.format import (
     enrich_request,
     combine_request_and_job_settings
 )

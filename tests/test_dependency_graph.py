@@ -1,5 +1,5 @@
 from unittest import TestCase
-from utils.dependency_graph import DependencyGraph
+from jiffysql.utils.dependency_graph import DependencyGraph
 
 
 class TestDependencyGraph(TestCase):

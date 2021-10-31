@@ -1,5 +1,5 @@
-from utils.sql_config import extract_sql_config
-from utils.format import combine_request_and_job_settings
+from jiffysql.utils.sql_config import extract_sql_config
+from jiffysql.utils.format import combine_request_and_job_settings
 
 
 class BaseSQLTask:

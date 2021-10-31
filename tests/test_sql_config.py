@@ -1,6 +1,6 @@
 from google.cloud.bigquery import SchemaField
 from unittest import TestCase, mock
-from utils.sql_config import (
+from jiffysql.utils.sql_config import (
     extract_sql_config,
     extract_schema,
     extract_schema_settings_from_comment,

@@ -5,7 +5,7 @@ from google.cloud.bigquery import (
     TimePartitioning
 )
 from unittest import TestCase
-from utils.big_query import (
+from jiffysql.utils.big_query import (
     configure_query_settings,
     configure_table,
     get_table_clustering_fields

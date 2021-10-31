@@ -1,5 +1,5 @@
 from unittest import TestCase, mock
-from utils.tasks import get_parameters
+from jiffysql.utils.tasks import get_parameters
 
 
 class TestTasks(TestCase):
