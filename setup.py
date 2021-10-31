@@ -11,8 +11,8 @@ def test_suite_for_jiffy():
 if __name__ == '__main__':
     setup(
         name='jiffy-sql',
-        packages=find_packages(include=['jiffysql']),
-        version='0.0.1',
+        packages=find_packages(include=['jiffysql', 'jiffysql.*']),
+        version='0.0.2',
         description='Works out SQL file dependencies and runs them in a jiffy',
         author='Matt Collins',
         install_requires=['google-cloud-bigquery'],
