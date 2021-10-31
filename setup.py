@@ -16,5 +16,6 @@ if __name__ == '__main__':
         description='Works out SQL file dependencies and runs them in a jiffy',
         author='Matt Collins',
         install_requires=['google-cloud-bigquery'],
+        url='https://github.com/mjpcollins/jiffy-sql',
         test_suite='setup.test_suite_for_jiffy'
     )
