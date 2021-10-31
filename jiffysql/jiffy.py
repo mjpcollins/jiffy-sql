@@ -18,10 +18,3 @@ class Jiffy:
             all_tasks['tasks'][task_name].run()
         delete_local_repo(self._config)
         return True
-
-
-if __name__ == '__main__':
-    conf = {'repo': 'example-sql-for-sql-runner',
-             'project': 'national-rail-247416'}
-    j = Jiffy(conf)
-    j.run()
