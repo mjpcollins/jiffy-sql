@@ -1,8 +1,8 @@
-from jiffysql.utils.fetch import (
+from jiffysql.gcp.fetch import (
     download_to_local,
     delete_local_repo
 )
-from jiffysql.utils.tasks import get_tasks
+from jiffysql.tasks.tasks import get_tasks
 
 
 class Jiffy:

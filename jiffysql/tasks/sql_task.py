@@ -1,7 +1,7 @@
 import re
-from jiffysql.utils.big_query import run_script
-from jiffysql.utils.base_sql_task import BaseSQLTask
-from jiffysql.utils.validation_task import ValidationTask
+from jiffysql.gcp.big_query import run_script
+from jiffysql.tasks.base_sql_task import BaseSQLTask
+from jiffysql.tasks.validation_task import ValidationTask
 
 table_regex = re.compile(r'[FfJj][RrOo][OoIi][MmNn] `(.*\..*\..*)`')
 

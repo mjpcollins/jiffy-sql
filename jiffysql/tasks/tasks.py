@@ -1,9 +1,9 @@
 import glob
 from importlib import import_module
-from jiffysql.utils.sql_task import SQLTask
+from jiffysql.tasks.sql_task import SQLTask
 from jiffysql.utils.format import enrich_request
-from jiffysql.utils.dependency_graph import DependencyGraph
-from jiffysql.utils.big_query import create_validation_output_table
+from jiffysql.graph.dependency_graph import DependencyGraph
+from jiffysql.gcp.big_query import create_validation_output_table
 
 
 def get_tasks(request):

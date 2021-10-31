@@ -1,4 +1,4 @@
-from jiffysql.utils.sql_config import extract_sql_config
+from jiffysql.gcp.sql_config import extract_sql_config
 from jiffysql.utils.format import combine_request_and_job_settings
 
 

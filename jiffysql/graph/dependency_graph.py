@@ -1,4 +1,4 @@
-from jiffysql.utils.table_node import TableNode
+from jiffysql.graph.table_node import TableNode
 
 
 class DependencyGraph:
