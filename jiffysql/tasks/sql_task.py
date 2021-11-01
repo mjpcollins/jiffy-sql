@@ -4,6 +4,7 @@ from jiffysql.tasks.base_sql_task import BaseSQLTask
 from jiffysql.tasks.validation_task import ValidationTask
 
 table_regex = re.compile(r'[FfJj][RrOo][OoIi][MmNn] `(.*\..*\..*)`')
+file_name_regex = re.compile(r'[\\|\/]([0-9a-zA-Z_]*)\.sql')
 
 
 class SQLTask(BaseSQLTask):
@@ -38,8 +39,7 @@ class SQLTask(BaseSQLTask):
         return dependencies
 
     def _get_output_table_name(self):
-        file = self._filename.split('/')[-1]
-        table = file.split('.')[0]
+        table = file_name_regex.findall(self._filename)[0]
         dataset = self._params['dataset']
         project = self._request['project']
         self.output_table_name = f'{project}.{dataset}.{table}'

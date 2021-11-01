@@ -7,6 +7,9 @@ from jiffysql.graph.dependency_graph import DependencyGraph
 from jiffysql.gcp.big_query import create_validation_output_table
 
 
+file_name_regex = re.compile(r'[\\|\/]([0-9a-zA-Z_]*)\.sql')
+
+
 def get_tasks(request):
     enrich_request(request)
     params = get_parameters(request)
@@ -50,7 +53,6 @@ def get_all_validation_files(request):
 
 
 def create_validation_file_dict(sql_files_in_validation_folder):
-    file_name_regex = re.compile(r'[\\|\/]([0-9a-zA-Z_]*)\.sql')
     validation_files = {}
     for filename in sql_files_in_validation_folder:
         validation_name = file_name_regex.findall(filename)[0]

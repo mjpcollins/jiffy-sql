@@ -11,12 +11,12 @@ class TestDependencyGraph(TestCase):
                    'project': 'national-rail-247416',
                    'params': 'some_params'}
         filename = 'example-repo/sql/1/100_autotrader_filter.sql'
-        params = {'dataset': 'sql_runner_pilot',
-                  'sql_variables': {'autotrader_source': '`national-rail-247416.data_scrape.100_autotrader`',
-                                    '100_autotrader_filter': '`national-rail-247416.sql_runner_pilot.100_autotrader_filter`',
-                                    'partition_date': '2021-10-12'}}
+        self.params = {'dataset': 'sql_runner_pilot',
+                       'sql_variables': {'autotrader_source': '`national-rail-247416.data_scrape.100_autotrader`',
+                                         '100_autotrader_filter': '`national-rail-247416.sql_runner_pilot.100_autotrader_filter`',
+                                         'partition_date': '2021-10-12'}}
         self.sql_task = SQLTask(filename=filename,
-                                params=params,
+                                params=self.params,
                                 request=request)
         self.maxDiff = None
 
@@ -56,6 +56,20 @@ class TestDependencyGraph(TestCase):
         actual_table_name = self.sql_task._get_output_table_name()
         self.assertEqual(expected_table_name, actual_table_name)
         self.assertEqual(self.sql_task.output_table_name, actual_table_name)
+
+    @mock.patch("builtins.open", new_callable=mock.mock_open, read_data=expected_loaded_query_string)
+    def test_get_output_table_name_windows(self, _):
+        request = {'repo': 'a_repo',
+                   'project': 'main_project',
+                   'params': 'some_params'}
+        filename = 'sql\\100_raw_data.sql'
+        sql_task = SQLTask(filename=filename,
+                           params=self.params,
+                           request=request)
+        expected_table_name = 'main_project.sql_runner_pilot.100_raw_data'
+        actual_table_name = sql_task._get_output_table_name()
+        self.assertEqual(expected_table_name, actual_table_name)
+        self.assertEqual(sql_task.output_table_name, actual_table_name)
 
     def test_get_dependencies(self):
         expected_dependencies = {'output_table': 'national-rail-247416.sql_runner_pilot.100_autotrader_filter',
