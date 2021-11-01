@@ -1,3 +1,4 @@
+import re
 import glob
 from importlib import import_module
 from jiffysql.tasks.sql_task import SQLTask
@@ -44,10 +45,15 @@ def get_all_sql_files(request):
 
 def get_all_validation_files(request):
     folder = request['sql_validation_tests_file_path']
+    sql_files_in_validation_folder = get_all_sql_files_within_this_folder(folder)
+    return create_validation_file_dict(sql_files_in_validation_folder)
+
+
+def create_validation_file_dict(sql_files_in_validation_folder):
+    file_name_regex = re.compile(r'[\\|\/]([0-9a-zA-Z_]*)\.sql')
     validation_files = {}
-    for filename in get_all_sql_files_within_this_folder(folder):
-        file = filename.split('/')[-1]
-        validation_name = file.split('.')[0]
+    for filename in sql_files_in_validation_folder:
+        validation_name = file_name_regex.findall(filename)[0]
         validation_files[validation_name] = filename
     return validation_files
 
@@ -58,5 +64,3 @@ def get_all_sql_files_within_this_folder(folder):
     all_sql_files = [f for f in all_files_in_sql_folder
                      if '.sql' == f[-4:]]
     return all_sql_files
-
-

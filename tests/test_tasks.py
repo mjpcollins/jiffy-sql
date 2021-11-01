@@ -1,5 +1,8 @@
 from unittest import TestCase
-from jiffysql.tasks.tasks import get_parameters
+from jiffysql.tasks.tasks import (
+    get_parameters,
+    create_validation_file_dict
+)
 
 
 class TestTasks(TestCase):
@@ -15,3 +18,13 @@ class TestTasks(TestCase):
                                    'maths': 100}
         actual_dynamic_import = get_parameters(self.request)
         self.assertEqual(expected_dynamic_import, actual_dynamic_import)
+
+    def test_get_all_validation_files(self):
+        input_files = [
+            'jiffy-sql-pilot/sql_tests\\100_raw_data_validation.sql',
+            'jiffy-sql-pilot/sql_tests/200_raw_data_validation.sql',
+        ]
+        expected_dict = {'100_raw_data_validation': 'jiffy-sql-pilot/sql_tests\\100_raw_data_validation.sql',
+                         '200_raw_data_validation': 'jiffy-sql-pilot/sql_tests/200_raw_data_validation.sql'}
+        actual_dict = create_validation_file_dict(input_files)
+        self.assertEqual(expected_dict, actual_dict)
