@@ -12,7 +12,7 @@ if __name__ == '__main__':
     setup(
         name='jiffy-sql',
         packages=find_packages(include=['jiffysql', 'jiffysql.*']),
-        version='0.0.5',
+        version='0.0.7',
         description='Works out SQL file dependencies and runs them in a jiffy',
         author='Matt Collins',
         install_requires=['google-cloud-bigquery'],
