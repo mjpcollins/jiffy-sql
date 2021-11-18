@@ -79,3 +79,19 @@ class TestSQLConfig(TestCase):
                                       description='Field to describe the registration of the car. E.g. "LT15 HFG"')
         actual_schema = extract_schema_settings_from_comment(input_comment)
         self.assertEqual(expected_schema, actual_schema)
+
+    def test_buggy_schema_description(self):
+        input_file_lines = ["-- DESCRIPTION:  Table to create a unique joining column",
+                            "-- OVERWRITE : False ",
+                            "--  PARTITION: True",
+                            "  -- PARTITION BY: DATE",
+                            "-- SCHEMA:",
+                            "--  name=registration, field_type=STRING, description=Field to describe the registration of the car. E.g. \"LT15 HFG\"",
+                            "--  name=specification_int, field_type=INT64",
+                            "--  name=specification_model, field_type=STRING",
+                            "--  name=dealer_location_postcode, field_type=STRING",
+                            "--  name=joining_column, field_type=STRING,description",
+                            "-- END SCHEMA:",
+                            "-- Comment about the weather which isn't important right now"]
+        with self.assertRaises(ValueError):
+            extract_schema(input_file_lines)

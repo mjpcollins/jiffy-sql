@@ -51,8 +51,9 @@ def run_validation_script(query_data):
         return False
 
 
-def run_script(query_data):
+def run_script(query_data, dry_run=False):
     job_settings = query_data['job_settings']
+    job_settings['DRY_RUN'] = dry_run
     client = Client(job_settings['project'])
     if not table_exists(job_settings['table_name'], client):
         table = configure_table(query_data)
@@ -100,6 +101,9 @@ def configure_query_settings(job_settings):
     jc.write_disposition = job_settings.get('WRITE_DISPOSITION', 'WRITE_APPEND')
     jc.default_dataset = job_settings.get('DEFAULT_DATASET', None)
     jc.priority = job_settings.get('PRIORITY', 'INTERACTIVE')
+    jc.dry_run = job_settings.get('DRY_RUN', False)
+    if jc.dry_run:
+        jc.use_query_cache = False
     return jc
 
 

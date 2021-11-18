@@ -31,7 +31,8 @@ class TestSQL(TestCase):
                 'write_disposition': 'WRITE_APPEND',
                 'destination': 'example_project.sql_runner_pilot.300_apples',
                 'default_dataset': None,
-                'priority': 'INTERACTIVE'}
+                'priority': 'INTERACTIVE',
+                'dry_run': False}
         expected_api_repr = QueryJobConfig(**conf).to_api_repr()
         actual_api_repr = configure_query_settings(job_settings).to_api_repr()
         self.assertEqual(expected_api_repr, actual_api_repr)

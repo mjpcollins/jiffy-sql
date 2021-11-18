@@ -36,8 +36,13 @@ def extract_schema(comments):
                 in_schema_params = False
 
         if in_schema_params:
-            schema.append(extract_schema_settings_from_comment(c))
-
+            try:
+                schema.append(extract_schema_settings_from_comment(c))
+            except IndexError:
+                err_context = "\n".join([f'{" " * (2 - len(str(idx))) + str(idx)}: {com}'
+                                         for idx, com in enumerate(comments)])
+                err = f'Issue parsing comment {comments.index(c)} as a schema: "{c}".\n{err_context}'
+                raise ValueError(err)
     return schema
 
 
