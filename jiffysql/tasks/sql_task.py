@@ -26,20 +26,20 @@ class SQLTask(BaseSQLTask):
             run_script(query_data=self._query_data,
                        dry_run=dry_run)
         else:
-            if self._table_has_not_been_run():
+            if not self._table_has_been_run():
                 run_script(self._query_data)
             self._run_tests_for_output_table()
 
-    def _table_has_not_been_run(self):
+    def _table_has_been_run(self):
         """
         If table passes all the validation tests then it does not need to be run.
 
-        :return: True = table has not been run / False = table has been run
+        :return: True = table has been run / False = table has not been run
         """
         for validation_task in self._validation_tasks:
             if not validation_task.run_test():
-                return True
-        return False
+                return False
+        return True
 
     def _run_tests_for_output_table(self):
         """
