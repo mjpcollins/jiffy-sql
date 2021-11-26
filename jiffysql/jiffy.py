@@ -1,7 +1,4 @@
-from jiffysql.gcp.fetch import (
-    download_to_local,
-    delete_local_repo
-)
+from jiffysql.gcp.fetch import Fetch
 from jiffysql.tasks.tasks import get_tasks
 
 
@@ -11,10 +8,11 @@ class Jiffy:
         self._config = config
 
     def run(self, dry_run=False):
-        delete_local_repo(self._config)
-        download_to_local(self._config)
+        fetch_obj = Fetch(self._config)
+        fetch_obj.delete_local_repo()
+        fetch_obj.download_to_local()
         all_tasks = get_tasks(request=self._config)
         for task_name in all_tasks['task_order']:
             all_tasks['tasks'][task_name].run(dry_run=dry_run)
-        delete_local_repo(self._config)
+        fetch_obj.delete_local_repo()
         return True
