@@ -11,6 +11,7 @@ class ValidationTask(BaseSQLTask):
     def __init__(self, filename, params, request):
         super().__init__(filename, params, request)
         self.latest_test_result = None
+        self._validation_table_ref = f'{request["project"]}.{params["dataset"]}.validation_tests'
 
     def run_test(self):
         self.latest_test_result = run_validation_script(self._query_data)
@@ -30,6 +31,8 @@ class ValidationTask(BaseSQLTask):
                 'write_time': now
             }
         ]
-        insert_into_table(request=self._request,
-                          params=self._params,
-                          row=row)
+        insert_into_table(
+            project=self._request["project"],
+            table_ref=self._validation_table_ref,
+            row=row
+        )

@@ -9,9 +9,8 @@ from google.cloud.bigquery import (
 from jiffysql.schema.validation_table import schema as validation_schema
 
 
-def insert_into_table(request, params, row):
-    client = Client(request['project'])
-    table_ref = f'{request["project"]}.{params["dataset"]}.validation_tests'
+def insert_into_table(project, table_ref, row):
+    client = Client(project)
     table = client.get_table(table_ref)
     if table:
         try:
@@ -23,20 +22,26 @@ def insert_into_table(request, params, row):
         except NotFound:
             print(f'{table.table_id} *apparently* not found. Waiting 5 seconds then trying again')
             time.sleep(5)
-            insert_into_table(request, params, row)
+            insert_into_table(project, table_ref, row)
 
 
 def create_validation_output_table(request, params):
-    client = Client(request['project'])
-    table_ref = f'{request["project"]}.{params["dataset"]}.validation_tests'
+    create_table(
+        table_ref=f'{request["project"]}.{params["dataset"]}.validation_tests',
+        schema=validation_schema
+    )
+
+
+def create_table(table_ref, schema):
+    client = Client()
     if not table_exists(table_ref, client):
         table = Table(
             table_ref=table_ref,
-            schema=validation_schema
+            schema=schema
         )
         client.create_table(table=table)
         print(
-            "Created validation table {}.{}.{}".format(table.project, table.dataset_id, table.table_id)
+            f"Created: {table.project}.{table.dataset_id}.{table.table_id}"
         )
 
 

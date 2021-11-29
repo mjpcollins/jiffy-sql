@@ -8,24 +8,19 @@ schema = [
         description='Repository of SQL that was run'
     ),
     SchemaField(
-        name='test_name',
+        name='log_category',
         field_type='STRING',
-        description='Summary name of the test'
+        description='Summary name of the log'
     ),
     SchemaField(
-        name='description',
+        name='message',
         field_type='STRING',
-        description='Full description of the test (if given in the validation SQL file)'
+        description='Message associated with the log'
     ),
     SchemaField(
-        name='test_file_path',
+        name='run_id',
         field_type='STRING',
-        description='File path location of the test SQL within the repository'
-    ),
-    SchemaField(
-        name='result',
-        field_type='BOOL',
-        description='1 for test passed, 0 for test failed'
+        description='Unique identifier for this run'
     ),
     SchemaField(
         name='write_time',
@@ -33,4 +28,3 @@ schema = [
         description='Time that this row of data was written to BigQuery'
     )
 ]
-

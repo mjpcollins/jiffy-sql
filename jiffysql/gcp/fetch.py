@@ -11,6 +11,7 @@ class Fetch:
         self._branch = request.get('branch', 'master')
 
     def download_to_local(self):
+        self.delete_local_repo()
         clone_command = self._get_clone_command()
         os.system(clone_command)
         if self._branch not in ('main', 'master'):

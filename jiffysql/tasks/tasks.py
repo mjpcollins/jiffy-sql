@@ -2,7 +2,6 @@ import re
 import glob
 from importlib import import_module
 from jiffysql.tasks.sql_task import SQLTask
-from jiffysql.utils.format import enrich_request
 from jiffysql.graph.dependency_graph import DependencyGraph
 from jiffysql.gcp.big_query import create_validation_output_table
 
@@ -11,7 +10,6 @@ file_name_regex = re.compile(r'[\\|\/]([0-9a-zA-Z_]*)\.sql')
 
 
 def get_tasks(request):
-    enrich_request(request)
     params = get_parameters(request)
     create_validation_output_table(request, params)
     request['validation_files'] = get_all_validation_files(request)
