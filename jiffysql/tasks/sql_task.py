@@ -26,7 +26,6 @@ class SQLTask(BaseSQLTask):
             run_script(query_data=self._query_data,
                        dry_run=dry_run)
         else:
-            raise TypeError('lol, uhoh')
             if not self._table_has_been_run():
                 run_script(self._query_data)
             self._run_tests_for_output_table()
