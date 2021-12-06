@@ -18,6 +18,7 @@ class Logs:
         self._client = Client(self._config["project"])
         self._run_id = self._get_run_id()
         create_table(
+            project=self._config.get('project'),
             table_ref=self._table,
             schema=logs_schema
         )
@@ -25,7 +26,7 @@ class Logs:
     def start(self):
         self._write(
             category='start',
-            message=self._config
+            message=str(self._config)
         )
 
     def log(self, message):

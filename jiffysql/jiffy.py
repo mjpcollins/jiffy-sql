@@ -8,11 +8,11 @@ class Jiffy:
 
     def __init__(self, config):
         self._config = enrich_request(config)
-        self._logs = Logs(config)
         self._repo_fetcher = Fetch(self._config)
+        self._repo_fetcher.download_to_local()
+        self._logs = Logs(config)
 
     def run(self, dry_run=False):
-        self._repo_fetcher.download_to_local()
         if dry_run:
             self._run_process(dry_run=dry_run)
         else:
@@ -22,8 +22,7 @@ class Jiffy:
                     self._run_process(dry_run=dry_run)
                     self._logs.stop(f'Process complete :)')
                 except Exception as e:
-                    err_str = str(e)
-                    self._logs.stop(f'Error: {err_str}')
+                    self._logs.stop(f'{type(e).__name__}: {e}')
                     self._repo_fetcher.delete_local_repo()
                     raise e
             else:

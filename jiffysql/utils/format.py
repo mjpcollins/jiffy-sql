@@ -8,6 +8,7 @@ def enrich_request(request):
     request['params_import_path'] = f'{repo}.{sql_folder}.{params_file}'
     request['sql_file_path'] = f'{repo}/{sql_folder}/'
     request['sql_validation_tests_file_path'] = f'{repo}/{tests_folder}/'
+    return request
 
 
 def combine_request_and_job_settings(request, job_settings):

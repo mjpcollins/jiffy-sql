@@ -27,13 +27,14 @@ def insert_into_table(project, table_ref, row):
 
 def create_validation_output_table(request, params):
     create_table(
+        project=request.get('project'),
         table_ref=f'{request["project"]}.{params["dataset"]}.validation_tests',
         schema=validation_schema
     )
 
 
-def create_table(table_ref, schema):
-    client = Client()
+def create_table(project, table_ref, schema):
+    client = Client(project)
     if not table_exists(table_ref, client):
         table = Table(
             table_ref=table_ref,
